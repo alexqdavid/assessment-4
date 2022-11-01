@@ -1,8 +1,5 @@
 const complimentBtn = document.getElementById("complimentButton")
-const complimentBtnOne = document.getElementById("complimentButtonOne")
-const complimentBtnTwo = document.getElementById("complimentButtonTwo")
-const complimentBtnThree = document.getElementById("complimentButtonThree")
-const complimentBtnFour = document.getElementById("complimentButtonFour")
+
 const getCompliment = () => {
     axios.get("http://localhost:5006/api/compliment/")
         .then(res => {
@@ -13,7 +10,9 @@ const getCompliment = () => {
 
 complimentBtn.addEventListener('click', getCompliment)
 
-const getComplimentOne = () => {
+let fortuneBtn = document.getElementById("fortuneButton")
+
+const getFortune = () => {
     axios.get("http://localhost:5006/api/compliment/")
         .then(res => {
             const data = res.data;
@@ -21,17 +20,20 @@ const getComplimentOne = () => {
     });
 };
 
-complimentBtnOne.addEventListener('click', getComplimentOne)
+fortuneBtn.addEventListener('click', getFortune)
 
-const createCompliment = evt => {
-
-    axios.post("http://localhost:5006/api/compliment/")
+document.querySelector(".submit".addEventListener)('submit', (e) => {
+    e.preventDefult();
+    let newGame = document.querySelector('.sumbit-input').value;
+    let newGenre =  document.querySelector('.sumbit-input').value;
+    let game = {
+        gameName : newGame,
+        type : newGenre
+    }
+    axios.get("http://localhost:5006/api/compliment/", game)
     .then(res => {
-        let {data} = res
-        data.forEach(comp => {
-        createCompliment(comp)            
-        });
-    })
-}
+        const data = res.data;
+        alert(data);
+});
 
-complimentBtnThree.addEventListener('click', createCompliment)
+})
